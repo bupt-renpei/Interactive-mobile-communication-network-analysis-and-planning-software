@@ -26,12 +26,12 @@ class Example(QtGui.QWidget):
         # 创建水平框布局对象，添加伸缩因子和两个按钮。
         # 这个伸缩因子在窗口改变时会在其前面添加空白。
         hbox = QtGui.QHBoxLayout()
-        hbox.addStretch(1)
+        
         hbox.addWidget(okButton)
         hbox.addWidget(cancelButton)
+        hbox.addStretch(1)
 
-        # 创建一个垂直框布局对象，并将水平框布局对象
-        # 添加到垂直框布局对象中。
+        # 创建一个垂直框布局对象，并将水平框布局对象添加到垂直框布局对象中。
         vbox = QtGui.QVBoxLayout()
         vbox.addStretch(1)
         vbox.addLayout(hbox)

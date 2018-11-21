@@ -4,7 +4,6 @@
 import sys
 from PyQt4 import QtGui
 
-
 class Example(QtGui.QMainWindow):
 
     def __init__(self):
