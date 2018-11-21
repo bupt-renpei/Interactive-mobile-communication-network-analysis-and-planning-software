@@ -41,7 +41,7 @@ class Example(QtGui.QMainWindow):
 
         # 第一个字符串参数指定标题，第二个字符串参数指定对话框的工作目录。
         # 默认情况下，文件过滤设置为所有文件（*）。
-        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
+        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file', './')
 
         f = open(fname, 'r')
 
@@ -49,6 +49,8 @@ class Example(QtGui.QMainWindow):
             # 读取文件内容，并在文本编辑对话框中显示。
             data = f.read()
             self.textEdit.setText(data)
+        
+        f.close()
 
 
 def main():
