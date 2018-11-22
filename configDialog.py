@@ -8,10 +8,10 @@
 import sys, random
 from PyQt4 import QtGui, QtCore
 
-class configurationDialog(QtGui.QWidget):
+class configDialog(QtGui.QWidget):
 
     def __init__(self):
-        super(configurationDialog, self).__init__()
+        super(configDialog, self).__init__()
 
         self.initUI()
 
@@ -81,7 +81,7 @@ class configurationDialog(QtGui.QWidget):
 def main():
 
     app = QtGui.QApplication(sys.argv)
-    ex = configurationDialog()
+    ex = configDialog()
     sys.exit(app.exec_())
 
 
