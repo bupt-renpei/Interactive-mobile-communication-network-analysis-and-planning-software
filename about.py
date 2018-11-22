@@ -8,18 +8,18 @@
 import sys, random
 from PyQt4 import QtGui, QtCore
 
-class aboutApplication(QtGui.QWidget):
+class about(QtGui.QWidget):
 
     def __init__(self):
-        super(aboutApplication, self).__init__()
+        super(about, self).__init__()
 
         self.initUI()
 
     def initUI(self):
 
-        version = QtGui.QLabel(u'\tVersion: 1.29.1')
-        author = QtGui.QLabel(u'\tAuthor: 孙韶鑫')
-        ID = QtGui.QLabel(u'\tID: 41524345')
+        version = QtGui.QLabel(u'\t\tVersion: 1.29.1')
+        author = QtGui.QLabel(u'\t\tAuthor: 孙韶鑫')
+        ID = QtGui.QLabel(u'\t\tID: 41524345')
         appName = QtGui.QLabel(u'交互式移动通信网络分析和规划软件')
 
         h1 = QtGui.QHBoxLayout()
@@ -40,18 +40,18 @@ class aboutApplication(QtGui.QWidget):
         vbox.addLayout(h1)
         vbox.addLayout(h2)
         vbox.addLayout(h3)
-        vbox.addStretch(1)
+        # vbox.addStretch(1)
 
         # 设置主窗口的布局。
         self.setLayout(vbox)
-        self.setGeometry(300, 300, 350, 180)
+        self.setGeometry(300, 300, 350, 120)
         self.setWindowTitle(u'关于')
         self.show()
 
 def main():
 
     app = QtGui.QApplication(sys.argv)
-    ex = aboutApplication()
+    ex = about()
     sys.exit(app.exec_())
 
 
