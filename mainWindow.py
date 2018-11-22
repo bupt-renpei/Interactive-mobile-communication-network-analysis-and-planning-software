@@ -56,6 +56,8 @@ class MainWindow(QtGui.QMainWindow):
         fileMenu.addAction(sourcesLink)
         fileMenu.addAction(about)
 
+        
+
         self.setGeometry(300, 300, 500, 300) # 设置窗口在屏幕上的位置与大小
         self.setWindowTitle(u'交互式移动通信网络分析和规划软件') # 设置窗口Title
         self.show()
