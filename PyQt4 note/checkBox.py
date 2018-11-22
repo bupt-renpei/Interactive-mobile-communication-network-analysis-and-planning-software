@@ -8,7 +8,7 @@
 import sys
 from PyQt4 import QtGui, QtCore
 
-class Example(QtGui.QWidget):
+class Example(QtGui.QMainWindow):
 
     def __init__(self):
         super(Example, self).__init__()
