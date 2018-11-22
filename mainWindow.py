@@ -3,7 +3,7 @@
 
 import sys, random
 from PyQt4 import QtGui, QtCore
-import configurationDialog
+import configDialog, about
 
 class MainWindow(QtGui.QMainWindow):
 
@@ -12,9 +12,6 @@ class MainWindow(QtGui.QMainWindow):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(300, 300, 500, 300) # 设置窗口在屏幕上的位置与大小
-
-        self.setWindowTitle(u'交互式移动通信网络分析和规划软件') # 设置窗口Title
 
         self.statusBar().showMessage('Ready') # 设置状态栏
 
@@ -24,7 +21,6 @@ class MainWindow(QtGui.QMainWindow):
         openFile.setStatusTip(u'打开配置文件')
         openFile.triggered.connect(self.showFiledialog)
 
-
         # 设置"退出"动作
         exitAction = QtGui.QAction(QtGui.QIcon('exit.png'), u'&退出', self) # 创建指定图标和'&Exit'标签的动作
         exitAction.setShortcut('Ctrl+Q') # 为该动作定义快捷键
@@ -32,14 +28,15 @@ class MainWindow(QtGui.QMainWindow):
         exitAction.triggered.connect(QtGui.qApp.quit) # 选定特定的动作，发出触发信号
 
         # 设置"新的配置对话框"动作
-        openConfigurationdialog = QtGui.QAction(QtGui.QIcon('openConfigurationdialog.png'), u'&新建配置', self)
-        openConfigurationdialog.setShortcut('Ctrl+N') # 为该动作定义快捷键
-        openConfigurationdialog.setStatusTip(u'打开配置对话框')
-        openConfigurationdialog.triggered.connect(self.openConfigurationdialog)
+        Configdialog = QtGui.QAction(QtGui.QIcon('openConfigdialog.png'), u'&新建配置', self)
+        Configdialog.setShortcut('Ctrl+N') # 为该动作定义快捷键
+        Configdialog.setStatusTip(u'打开配置对话框')
+        Configdialog.triggered.connect(self.openConfigdialog)
 
         # 设置"关于"动作
-        aboutApplication = QtGui.QAction(QtGui.QIcon('about.png'), u'&关于', self)
-        aboutApplication.setStatusTip(u'该软件版本及作者的一些信息')
+        about = QtGui.QAction(QtGui.QIcon('about.png'), u'&关于', self)
+        about.setStatusTip(u'该软件版本及作者的一些信息')
+        about.triggered.connect(self.openAbout)
 
         # 设置"源文件链接"
         sourcesLink = QtGui.QAction(QtGui.QIcon('sourcesLink.png'), u'&查看源文件', self)
@@ -53,17 +50,23 @@ class MainWindow(QtGui.QMainWindow):
         fileMenu.addAction(exitAction)
 
         fileMenu = menubar.addMenu(u'&配置')
-        fileMenu.addAction(openConfigurationdialog)
+        fileMenu.addAction(Configdialog)
 
         fileMenu = menubar.addMenu(u'&帮助')
         fileMenu.addAction(sourcesLink)
-        fileMenu.addAction(aboutApplication)
+        fileMenu.addAction(about)
 
+        self.setGeometry(300, 300, 500, 300) # 设置窗口在屏幕上的位置与大小
+        self.setWindowTitle(u'交互式移动通信网络分析和规划软件') # 设置窗口Title
         self.show()
 
-    def openConfigurationdialog(self):
-            self.another = configurationDialog.configurationDialog()
-            self.another.show()
+    def openConfigdialog(self):
+        self.another = configDialog.configDialog()
+        self.another.show()
+    
+    def openAbout(self):
+        self.another = about.about()
+        self.another.show()
 
     def openSourcesLink(self):
         QtGui.QDesktopServices.openUrl(QtCore.QUrl('https://github.com/AbnerHub/Interactive-mobile-communication-network-analysis-and-planning-software-design'))
@@ -72,13 +75,12 @@ class MainWindow(QtGui.QMainWindow):
 
         # 第一个字符串参数指定标题，第二个字符串参数指定对话框的工作目录。
         # 默认情况下，文件过滤设置为所有文件（*）。
-        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file', './')
+        fname = QtGui.QFileDialog.getOpenFileName(self, u'Open file', u'./')
 
-        f = open(fname, 'r')
-
-        with f:
+        with open(fname, 'r') as f:
             # 读取文件内容，并在文本编辑对话框中显示。
-            data = f.read()
+            data = f.readline()
+            print data
 
 def main():
     app = QtGui.QApplication(sys.argv)
