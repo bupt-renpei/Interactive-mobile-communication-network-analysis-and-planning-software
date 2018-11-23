@@ -7,7 +7,6 @@
 
 import sys, random
 from PyQt4 import QtGui, QtCore
-import chessWidget
 
 class MainWindow(QtGui.QWidget):
 
@@ -20,6 +19,12 @@ class MainWindow(QtGui.QWidget):
         hbox = QtGui.QHBoxLayout()
         vbox = QtGui.QVBoxLayout()
 
+        pixmap = QtGui.QPixmap('test.jpg')
+
+        # 将图片控件放入标签控件中
+        picture = QtGui.QLabel(self)
+        picture.setPixmap(pixmap)
+
         self.cb1 = QtGui.QCheckBox(u'覆盖情况', self)
 
         self.cb2 = QtGui.QCheckBox(u'下行最大速率', self)
@@ -29,16 +34,14 @@ class MainWindow(QtGui.QWidget):
         self.exitButton = QtGui.QPushButton(u'退出')
         self.exitButton.clicked.connect(QtGui.qApp.quit)
 
-        self.chess = chessWidget.ChessWidget(self)
-
         vbox.addWidget(self.cb1)
         vbox.addWidget(self.cb2)
         vbox.addWidget(self.refreshButton)
         vbox.addStretch(1)
         vbox.addWidget(self.exitButton)
 
-        hbox.addWidget(self.chess)
-        # hbox.addStretch(1)
+        hbox.addWidget(picture)
+        hbox.addStretch(1)
         hbox.addLayout(vbox, stretch=0)
 
         self.setLayout(hbox)
