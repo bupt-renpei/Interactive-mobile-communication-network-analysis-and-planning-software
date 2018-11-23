@@ -8,10 +8,10 @@
 import sys, random
 from PyQt4 import QtGui, QtCore
 
-class about(QtGui.QWidget):
+class About(QtGui.QWidget):
 
     def __init__(self):
-        super(about, self).__init__()
+        super(About, self).__init__()
 
         self.initUI()
 
@@ -51,7 +51,7 @@ class about(QtGui.QWidget):
 def main():
 
     app = QtGui.QApplication(sys.argv)
-    ex = about()
+    ex = About()
     sys.exit(app.exec_())
 
 
