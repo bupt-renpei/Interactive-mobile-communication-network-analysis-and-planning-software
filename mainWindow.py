@@ -10,6 +10,11 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.initUI()
+        self.form_widget = FormWidget(self) 
+        _widget = QtGui.QWidget()
+        _layout = QtGui.QVBoxLayout(_widget)
+        _layout.addWidget(self.form_widget)
+        self.setCentralWidget(_widget)
 
     def initUI(self):
 
@@ -56,8 +61,6 @@ class MainWindow(QtGui.QMainWindow):
         fileMenu.addAction(sourcesLink)
         fileMenu.addAction(about)
 
-        
-
         self.setGeometry(300, 300, 500, 300) # 设置窗口在屏幕上的位置与大小
         self.setWindowTitle(u'交互式移动通信网络分析和规划软件') # 设置窗口Title
         self.show()
@@ -74,15 +77,48 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.QDesktopServices.openUrl(QtCore.QUrl('https://github.com/AbnerHub/Interactive-mobile-communication-network-analysis-and-planning-software-design'))
 
     def showFiledialog(self):
-
         # 第一个字符串参数指定标题，第二个字符串参数指定对话框的工作目录。
         # 默认情况下，文件过滤设置为所有文件（*）。
-        fname = QtGui.QFileDialog.getOpenFileName(self, u'Open file', u'./')
+        fname = unicode(QtGui.QFileDialog.getOpenFileName(self, 'Open file', './', '.txt(*.txt)'))
+        if fname:
+            print fname
+            with open(fname, 'r') as f:
+                # 读取文件内容，并在文本编辑对话框中显示。
+                data = f.read()
+                print data
+        else:
+            pass
 
-        with open(fname, 'r') as f:
-            # 读取文件内容，并在文本编辑对话框中显示。
-            data = f.readline()
-            print data
+class FormWidget(QtGui.QWidget):
+
+    def __init__(self, parent):
+        super(FormWidget, self).__init__(parent)
+
+        self.initUI()
+
+    def initUI(self):
+        hbox = QtGui.QHBoxLayout()
+        vbox = QtGui.QVBoxLayout()
+
+        self.cb1 = QtGui.QCheckBox(u'覆盖情况', self)
+
+        self.cb2 = QtGui.QCheckBox(u'下行最大速率', self)
+
+        self.refreshButton = QtGui.QPushButton(u'分析')
+
+        self.exitButton = QtGui.QPushButton(u'退出')
+        self.exitButton.clicked.connect(QtGui.qApp.quit)
+
+        vbox.addWidget(self.cb1)
+        vbox.addWidget(self.cb2)
+        vbox.addWidget(self.refreshButton)
+        vbox.addStretch(1)
+        vbox.addWidget(self.exitButton)
+
+        hbox.addStretch(1)
+        hbox.addLayout(vbox)
+
+        self.setLayout(hbox)
 
 def main():
     app = QtGui.QApplication(sys.argv)
