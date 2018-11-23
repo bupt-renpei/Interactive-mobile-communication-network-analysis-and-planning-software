@@ -3,14 +3,14 @@
 
 import sys, random
 from PyQt4 import QtGui, QtCore
-import configDialog, about
+import configDialog, about, mainWindow
 
-class MainWindow(QtGui.QMainWindow):
+class MainProgram(QtGui.QMainWindow):
 
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super(MainProgram, self).__init__()
         self.initUI()
-        self.form_widget = FormWidget(self) 
+        self.form_widget = mainWindow.MainWindow(self) 
         _widget = QtGui.QWidget()
         _layout = QtGui.QVBoxLayout(_widget)
         _layout.addWidget(self.form_widget)
@@ -66,11 +66,11 @@ class MainWindow(QtGui.QMainWindow):
         self.show()
 
     def openConfigdialog(self):
-        self.another = configDialog.configDialog()
+        self.another = configDialog.ConfigDialog()
         self.another.show()
     
     def openAbout(self):
-        self.another = about.about()
+        self.another = about.About()
         self.another.show()
 
     def openSourcesLink(self):
@@ -89,40 +89,9 @@ class MainWindow(QtGui.QMainWindow):
         else:
             pass
 
-class FormWidget(QtGui.QWidget):
-
-    def __init__(self, parent):
-        super(FormWidget, self).__init__(parent)
-
-        self.initUI()
-
-    def initUI(self):
-        hbox = QtGui.QHBoxLayout()
-        vbox = QtGui.QVBoxLayout()
-
-        self.cb1 = QtGui.QCheckBox(u'覆盖情况', self)
-
-        self.cb2 = QtGui.QCheckBox(u'下行最大速率', self)
-
-        self.refreshButton = QtGui.QPushButton(u'分析')
-
-        self.exitButton = QtGui.QPushButton(u'退出')
-        self.exitButton.clicked.connect(QtGui.qApp.quit)
-
-        vbox.addWidget(self.cb1)
-        vbox.addWidget(self.cb2)
-        vbox.addWidget(self.refreshButton)
-        vbox.addStretch(1)
-        vbox.addWidget(self.exitButton)
-
-        hbox.addStretch(1)
-        hbox.addLayout(vbox)
-
-        self.setLayout(hbox)
-
 def main():
     app = QtGui.QApplication(sys.argv)
-    ex = MainWindow()
+    ex = MainProgram()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
