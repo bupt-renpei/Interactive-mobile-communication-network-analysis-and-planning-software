@@ -44,7 +44,11 @@ class About(QtGui.QWidget):
 
         # 设置主窗口的布局。
         self.setLayout(vbox)
-        self.setGeometry(300, 300, 350, 120)
+
+        self.resize(350,120)
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2,(screen.height()-size.height())/2)
         self.setWindowTitle(u'关于')
         self.show()
 

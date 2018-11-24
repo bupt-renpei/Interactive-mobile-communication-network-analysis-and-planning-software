@@ -12,18 +12,15 @@ class MainWindow(QtGui.QWidget):
 
     def __init__(self, parent):
         super(MainWindow, self).__init__(parent)
-
         self.initUI()
 
     def initUI(self):
         hbox = QtGui.QHBoxLayout()
         vbox = QtGui.QVBoxLayout()
 
-        pixmap = QtGui.QPixmap('test.jpg')
-
-        # 将图片控件放入标签控件中
-        picture = QtGui.QLabel(self)
-        picture.setPixmap(pixmap)
+        cb = QtGui.QCheckBox('Show title', self)
+        cb.move(20, 20)
+        cb.toggle()
 
         self.cb1 = QtGui.QCheckBox(u'覆盖情况', self)
 
@@ -40,8 +37,10 @@ class MainWindow(QtGui.QWidget):
         vbox.addStretch(1)
         vbox.addWidget(self.exitButton)
 
-        hbox.addWidget(picture)
+        hbox.addWidget(cb)
         hbox.addStretch(1)
         hbox.addLayout(vbox, stretch=0)
 
         self.setLayout(hbox)
+
+        self.show()

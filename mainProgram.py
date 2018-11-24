@@ -61,7 +61,11 @@ class MainProgram(QtGui.QMainWindow):
         fileMenu.addAction(sourcesLink)
         fileMenu.addAction(about)
 
-        self.setGeometry(300, 300, 500, 300) # 设置窗口在屏幕上的位置与大小
+        self.resize(1110,740)
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        # self.setGeometry(300, 300, 500, 300) # 设置窗口在屏幕上的位置与大小
+        self.move((screen.width()-size.width())/2,(screen.height()-size.height())/2)
         self.setWindowTitle(u'交互式移动通信网络分析和规划软件') # 设置窗口Title
         self.show()
 

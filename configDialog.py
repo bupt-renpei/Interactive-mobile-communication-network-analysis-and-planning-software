@@ -74,7 +74,11 @@ class ConfigDialog(QtGui.QWidget):
 
         # 设置主窗口的布局。
         self.setLayout(vbox)
-        self.setGeometry(300, 300, 350, 180)
+
+        self.resize(350,180)
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2,(screen.height()-size.height())/2)
         self.setWindowTitle(u'新建配置')
         self.show()
 
@@ -83,7 +87,6 @@ def main():
     app = QtGui.QApplication(sys.argv)
     ex = ConfigDialog()
     sys.exit(app.exec_())
-
 
 if __name__ == '__main__':
     main()
