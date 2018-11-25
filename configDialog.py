@@ -12,7 +12,6 @@ class ConfigDialog(QtGui.QWidget):
 
     def __init__(self):
         super(ConfigDialog, self).__init__()
-
         self.initUI()
 
     def initUI(self):
@@ -22,18 +21,30 @@ class ConfigDialog(QtGui.QWidget):
         frequency = QtGui.QLabel(u'     频率')
         RSRPthreshold = QtGui.QLabel(u'RSRP 门限')
 
-        thermalNoiseEdit = QtGui.QLineEdit()
-        bandwidthEdit = QtGui.QLineEdit()
-        frequencyEdit = QtGui.QLineEdit()
-        RSRPthresholdEdit = QtGui.QLineEdit()
+        self.thermalNoiseEdit = QtGui.QLineEdit()
+        self.bandwidthEdit = QtGui.QLineEdit()
+        self.frequencyEdit = QtGui.QLineEdit()
+        self.RSRPthresholdEdit = QtGui.QLineEdit()
+
+        configData = []
+        with open('config.txt', 'r') as f:
+            for line in f:
+                data = line.split()
+                configData.append(data[1])
+        # print configData
+        self.thermalNoiseEdit.setText(configData[0])
+        self.bandwidthEdit.setText(configData[1])
+        self.frequencyEdit.setText(configData[2])
+        self.RSRPthresholdEdit.setText(configData[3])
 
         thermalNoiseUnit = QtGui.QLabel('dBm/Hz\t')
         bandwidthUnit = QtGui.QLabel('Hz\t')
         frequencyUnit = QtGui.QLabel('MHz\t')
         RSRPthresholdUnit = QtGui.QLabel('dBm\t')
 
-        saveButton = QtGui.QPushButton(u'保存并退出')
-        exitButton = QtGui.QPushButton(u'仅退出')
+        saveButton = QtGui.QPushButton(u'保存')
+        saveButton.clicked.connect(self.saveConfig)
+        exitButton = QtGui.QPushButton(u'退出')
         exitButton.clicked.connect(self.close)
 
         # 创建水平框布局对象，添加伸缩因子和两个按钮。
@@ -45,22 +56,22 @@ class ConfigDialog(QtGui.QWidget):
 
         h1 = QtGui.QHBoxLayout()
         h1.addWidget(thermalNoise)
-        h1.addWidget(thermalNoiseEdit)
+        h1.addWidget(self.thermalNoiseEdit)
         h1.addWidget(thermalNoiseUnit)
 
         h2 = QtGui.QHBoxLayout()
         h2.addWidget(bandwidth)
-        h2.addWidget(bandwidthEdit)
+        h2.addWidget(self.bandwidthEdit)
         h2.addWidget(bandwidthUnit)
 
         h3 = QtGui.QHBoxLayout()
         h3.addWidget(frequency)
-        h3.addWidget(frequencyEdit)
+        h3.addWidget(self.frequencyEdit)
         h3.addWidget(frequencyUnit)
 
         h4 = QtGui.QHBoxLayout()
         h4.addWidget(RSRPthreshold)
-        h4.addWidget(RSRPthresholdEdit)
+        h4.addWidget(self.RSRPthresholdEdit)
         h4.addWidget(RSRPthresholdUnit)
 
         # 创建一个垂直框布局对象，并将水平框布局对象添加到垂直框布局对象中。
@@ -81,9 +92,27 @@ class ConfigDialog(QtGui.QWidget):
         self.move((screen.width()-size.width())/2,(screen.height()-size.height())/2)
         self.setWindowTitle(u'新建配置')
         self.show()
+    
+    def saveConfig(self):
+        thermalNoise = self.thermalNoiseEdit.text()
+        bandwidth = self.bandwidthEdit.text()
+        frequency = self.frequencyEdit.text()
+        RSRPthreshold = self.RSRPthresholdEdit.text()
+        with open('config.txt', 'w') as f:
+            f.write('thermalNoise\t')
+            f.write(thermalNoise)
+            f.write('\n')
+            f.write('bandwidth\t')
+            f.write(bandwidth)
+            f.write('\n')
+            f.write('frequency\t')
+            f.write(frequency)
+            f.write('\n')
+            f.write('RSRPthreshold\t')
+            f.write(RSRPthreshold)
+            f.write('\n')
 
 def main():
-
     app = QtGui.QApplication(sys.argv)
     ex = ConfigDialog()
     sys.exit(app.exec_())
