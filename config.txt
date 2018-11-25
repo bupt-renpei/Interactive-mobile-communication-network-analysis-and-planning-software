@@ -1,0 +1,4 @@
+thermalNoise	12
+bandwidth	11
+frequency	10
+RSRPthreshold	9
