@@ -87,7 +87,13 @@ class MainProgram(QtGui.QMainWindow):
         if fname:
             # print fname
             Data = []
-            with open('testdata.txt', 'r') as f:
+            buildings = []
+            building = []
+            basestation = []
+            datanumber = 0
+            dataname = 'none'
+            datacount = 0
+            with open(fname, 'r') as f:
 		        for line in f:
 			        data = line.split()
 			        Data.append(data)

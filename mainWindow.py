@@ -40,7 +40,6 @@ class MainWindow(QtGui.QWidget):
         vbox.addStretch(1)
         vbox.addWidget(self.exitButton)
 
-        # hbox.addWidget(b)
         hbox.addStretch(1)
         hbox.addLayout(vbox, stretch=0)
 
