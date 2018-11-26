@@ -4,7 +4,6 @@
 import sys, random
 from PyQt4 import QtGui, QtCore
 import configDialog, about, mainWindow
-import matplotlib.pyplot as plt
 
 class MainProgram(QtGui.QMainWindow):
 
@@ -87,13 +86,12 @@ class MainProgram(QtGui.QMainWindow):
         fname = unicode(QtGui.QFileDialog.getOpenFileName(self, 'Open file', './', '.txt(*.txt)'))
         if fname:
             # print fname
-            with open(fname, 'r') as f:
-                # 读取文件内容，并在文本编辑对话框中显示。
-                X, Y, H, P = zip(*[[float(s) for s in line.split()] for line in f])
-                # data = f.read()
-                # print data
-            plt.plot(X, Y)
-            plt.show()
+            Data = []
+            with open('testdata.txt', 'r') as f:
+		        for line in f:
+			        data = line.split()
+			        Data.append(data)
+		        print Data
         else:
             pass
 
