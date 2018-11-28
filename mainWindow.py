@@ -7,6 +7,7 @@
 
 import sys, random
 from PyQt4 import QtGui, QtCore
+import drawMap
 
 class MainWindow(QtGui.QWidget):
 
@@ -40,7 +41,7 @@ class MainWindow(QtGui.QWidget):
         vbox.addStretch(1)
         vbox.addWidget(self.exitButton)
 
-        hbox.addStretch(1)
+        hbox.addWidget(self.map)
         hbox.addLayout(vbox, stretch=0)
 
         self.setLayout(hbox)
